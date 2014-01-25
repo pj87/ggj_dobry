@@ -88,10 +88,9 @@ public class FbxModelImporter : AssetPostprocessor
         navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         navMeshAgent.avoidancePriority = 50;
 
-        var collider = gameObject.AddComponent<CapsuleCollider>();
-        collider.center = new Vector3(0.08f, 0, -0.95f);
-        collider.radius = 1.5f;
-        collider.height = 6f;
+        var collider = gameObject.AddComponent<BoxCollider>();
+        collider.center = new Vector3(0.064f, 0.045f, -0.818f);
+        collider.size = new Vector3(2f, 2.5f, 1.7f);
 
         gameObject.AddComponent<GlutBehavior>();
 
