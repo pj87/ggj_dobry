@@ -3,61 +3,209 @@ using System.Collections;
 
 public class Welcome : MonoBehaviour
 {
-    public float menuTimeout;
+    private enum Mode
+    {
+        Invalid,
+        Init,
+        Menu,
+        Credits
+    }
 
-    private bool _showMenu = false;
+    public float initialCreditsDelay = 7f;
 
-    private float _menuWidth = 400f;
-    private float _menuHeight = 250f;
-    private float _buttonWidth = 300f;
-    private float _buttonHeight = 30f;
-    private float _buttonLeft;
-    private float _buttonSpacing;
+    public float _guiAlpha = 0;
+
+    private bool _areStylesInitialized = false;
+    private GUIStyle _styleButton;
+    private GUIStyle _styleCreditsTitle;
+    private GUIStyle _styleCreditsNames;
+
+    private Mode _mode = Mode.Invalid;
+    private bool _modeChanging = false;
+
+    private GUILayoutOption[] _optionsMenuButton;
 
     private Rect _menuRect;
+    private Rect _creditsRect;
 
-	// Use this for initialization
-	void Start ()
+    private string[] _creatorNames;
+
+	void Awake()
     {
-        
-        var menuLeft = (Screen.width - _menuWidth) * 0.5f;
-        var menuTop = (Screen.height - _menuHeight) * 0.5f;
+        float menuWidth = 300f;
+        float menuHeight = 250f;
+        float creditsWidth = 450f;
+        float creditsHeight = 300f;
 
-        _buttonLeft = (_menuWidth - _buttonWidth) * 0.5f;
-        _buttonSpacing = 10f;
+        var menuLeft = (Screen.width - menuWidth) * 0.5f;
+        var menuTop = (Screen.height - menuHeight) * 0.5f;
+        var creditsLeft = (Screen.width - creditsWidth) * 0.5f;
+        var creditsTop = (Screen.height - creditsHeight) * 0.5f;
 
-        _menuRect = new Rect(menuLeft, menuTop, _menuWidth, _menuHeight);
+        _optionsMenuButton = new GUILayoutOption[]
+        {
+            GUILayout.Height(45f)
+        };
+
+        _menuRect = new Rect(menuLeft, menuTop, menuWidth, menuHeight);
+        _creditsRect = new Rect(creditsLeft, creditsTop, creditsWidth, creditsHeight);
+
+        _creatorNames = new string[]
+        {
+            "aaaa",
+            "bbbb",
+            "cccc",
+            "dddd"
+        };
+
+        ChangeMode(Mode.Init);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (Time.time > menuTimeout)
-        {
-            _showMenu = true;
-        }
 	}
 
     void OnGUI()
     {
-        if (_showMenu)
+        var color = GUI.color;
+        color.a = _guiAlpha;
+        GUI.color = color;
+
+        if (!_areStylesInitialized)
         {
-            GUI.Window(0, _menuRect, DrawMenu, "Menu");
+            InitStyles();
+        }
+
+        switch (_mode)
+        {
+            case Mode.Init:
+                ShowCredits();
+                if (Time.time > initialCreditsDelay)
+                {
+                    ChangeMode(Mode.Menu);
+                }
+                break;
+            case Mode.Menu:
+                ShowMenu();
+                break;
+            case Mode.Credits:
+                ShowCredits();
+                break;
+            default:
+                Debug.LogError("Invalid mode: " + _mode);
+                break;
         }
     }
 
-    void DrawMenu(int windowId)
+    private void InitStyles()
     {
-        var x = _buttonLeft;
-        var y = _buttonLeft;
-        if (GUI.Button(new Rect(x, y, _buttonWidth, _buttonHeight), "Start"))
+        _styleButton = new GUIStyle(GUI.skin.button);
+        _styleButton.fontStyle = FontStyle.Bold;
+        _styleButton.fontSize = 18;
+        _styleButton.normal.textColor = Color.gray;
+
+        _styleCreditsTitle = new GUIStyle(GUI.skin.label);
+        _styleCreditsTitle.alignment = TextAnchor.MiddleCenter;
+        _styleCreditsTitle.fontStyle = FontStyle.Bold;
+        _styleCreditsTitle.fontSize = 26;
+        _styleCreditsTitle.normal.textColor = Color.gray;
+
+        _styleCreditsNames = new GUIStyle(GUI.skin.label);
+        _styleCreditsNames.alignment = TextAnchor.MiddleCenter;
+        _styleCreditsNames.fontSize = 18;
+        _styleCreditsNames.normal.textColor = Color.gray;
+    }
+
+    void ShowMenu()
+    {
+        float buttonSpacing = 5f;
+
+        GUILayout.BeginArea(_menuRect);
+        GUILayout.BeginVertical();
+
+        if (GUILayoutButtonEx("Start"))
         {
             Application.LoadLevel("game");
         }
-        y += _buttonHeight + _buttonSpacing;
-        if (GUI.Button(new Rect(x, y, _buttonWidth, _buttonHeight), "Exit"))
+        GUILayout.Space(buttonSpacing);
+        if (GUILayoutButtonEx("Credits"))
+        {
+            ChangeMode(Mode.Credits);
+        }
+        GUILayout.Space(buttonSpacing);
+        if (GUILayoutButtonEx("Exit"))
         {
             Application.Quit();
         }
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+    }
+
+    private bool GUILayoutButtonEx(string text)
+    {
+        return GUILayout.Button(text, _styleButton, _optionsMenuButton);
+    }
+
+    void ShowCredits()
+    {
+        GUILayout.BeginArea(_creditsRect);
+        GUILayout.BeginVertical();
+
+        GUILayout.Label("PolyJam 2014", _styleCreditsTitle);
+        GUILayout.Space(30f);
+
+        foreach (var name in _creatorNames)
+        {
+            GUILayout.Label(name, _styleCreditsNames, GUILayout.ExpandWidth(true));
+            GUILayout.Space(7f);
+        }
+
+        if (_mode == Mode.Credits)
+        {
+            if (GUILayoutButtonEx("Back"))
+            {
+                ChangeMode(Mode.Menu);
+            }
+        }
+
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+    }
+
+    private void ChangeMode(Mode mode)
+    {
+        StartCoroutine(ChangeModeCoroutine(mode));
+    }
+
+    private IEnumerator ChangeModeCoroutine(Mode mode)
+    {
+        if (_modeChanging)
+        {
+            yield break;
+        }
+
+        _modeChanging = true;
+
+        if (mode != Mode.Init)
+        {
+            // fade out
+            while(_guiAlpha > 0)
+            {
+                _guiAlpha = Mathf.Clamp01(_guiAlpha - Time.deltaTime * 0.5f);
+                print("out: " + _guiAlpha);
+                yield return null;
+            }
+        }
+        _mode = mode;
+        // fade in
+        while (_guiAlpha < 1)
+        {
+            _guiAlpha = Mathf.Clamp01(_guiAlpha + Time.deltaTime * 0.5f);
+            yield return null;
+        }
+
+        _modeChanging = false;
     }
 }
