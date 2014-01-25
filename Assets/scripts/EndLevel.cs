@@ -7,7 +7,8 @@ public class EndLevel : MonoBehaviour {
     GameObject finish; 
 
     bool playerKilled_; 
-    bool playerFinished_; 
+    bool playerFinished_;
+    bool changeScreen_; 
 
     public void setPlayerKilled(bool p) 
     { 
@@ -25,13 +26,22 @@ public class EndLevel : MonoBehaviour {
         finish = GameObject.Find("Finish");
 
         playerKilled_ = false;
-        playerFinished_ = false; 
+        playerFinished_ = false;
+        changeScreen_ = false; 
 	}
-	
+
+    public void goToCredits() {
+        Application.LoadLevel("welcome");
+    }
+
 	// Update is called once per frame
 	void Update () {
-        if (playerFinished_ == true) 
-            Application.LoadLevel("welcome"); 
+        if (changeScreen_ == true)
+        {
+            changeScreen_ = false;
+            Invoke("goToCredits", 4); 
+            //Application.LoadLevel("welcome");
+        } 
         //if (player.GetComponent<Character>().getPlayerHp() <= 0)
             //DisplayResult(); 
 	} 
@@ -43,12 +53,14 @@ public class EndLevel : MonoBehaviour {
             GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 2, 400, 50)); 
             GUILayout.Label("You died... you miserable piece of meat...");
             GUILayout.EndArea();
+            changeScreen_ = true; 
         } 
         else if (playerFinished_ == true)
         {
             GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 2, 400, 50)); 
             GUILayout.Label("You have survived... for now..."); 
-            GUILayout.EndArea(); 
+            GUILayout.EndArea();
+            changeScreen_ = true; 
         }
     } 
 
