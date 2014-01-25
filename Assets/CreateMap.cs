@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class CreateMap : MonoBehaviour {
 
     public Transform brick;
-    public Transform player;
+    //public Transform player;
     //To jest caly murek w 1 miejscu. CYA!
     List<Transform> lista = new List<Transform>(); 
 
