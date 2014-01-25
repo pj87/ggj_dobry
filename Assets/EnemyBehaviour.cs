@@ -98,5 +98,6 @@ public class EnemyBehaviour : MonoBehaviour
 	{
         _animator.Play("Death");
         audio.PlayOneShot(audioDeath);
+        Destroy(gameObject, 1);
     }
 }

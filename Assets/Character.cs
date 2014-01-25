@@ -114,7 +114,6 @@ public class Character : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Finish")
         {
-            Debug.Log("Finished LEVEL!!!!!");
             mainCamera_.GetComponent<EndLevel>().setPlayerFinished(true); 
         }
     }
