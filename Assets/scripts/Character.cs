@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Character : MonoBehaviour {
 
-    public float angle;
+    public float angle; 
 
 	// Use this for initialization
 	void Start () {
@@ -25,6 +25,9 @@ public class Character : MonoBehaviour {
             moveVector.z = vAxis > 0 ? 1f : -1f;
         }
         transform.position += moveVector * 0.1f;
+        
+        //Vector3 speed : Vector3 = Vector3 (3, 0, 0);
+        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
         if(hAxis > 0 && vAxis == 0)
         {
             //angle = 0;
