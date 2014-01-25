@@ -9,7 +9,8 @@ public class EnemyBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
     private int pathFinding = 0;
-	private int atak = 0;
+	private int atakCooldown = 0;
+	public virtual int damage{ get {return 0;}}
 
     private Animator _animator;
 
@@ -32,17 +33,17 @@ public class EnemyBehaviour : MonoBehaviour
         {
             _animator.SetBool("IsAttacking", true);
 
-			if ((atak++) % 30 == 0) 
+			if ((atakCooldown++) % 30 == 0) 
 			{
 				//zabieranie zycia graczowi
-				player.GetComponent<player>.recieveDamage(5);
+				player.GetComponent<Character>().reciveDamage(damage);
 			}
 
         }
         else
         {
             _animator.SetBool("IsAttacking", false);
-			atak=0;
+			atakCooldown=0;
         }
 
 		if (distanceToPlayer <= 50) 
