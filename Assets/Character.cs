@@ -13,6 +13,8 @@ public class Character : MonoBehaviour {
 
 	private int visionMode = 0;	//tryb wizji, 0-latarka, 1-niebieska, 2-czerwona
 
+    public int VisionMode { get { return visionMode; } }
+
 	public AudioClip playerHit;
 	public AudioClip playerDeath;
 	public AudioClip playerStepA;

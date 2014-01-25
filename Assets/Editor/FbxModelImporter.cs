@@ -58,6 +58,8 @@ public class FbxModelImporter : AssetPostprocessor
         collider.height = 6f;
 
         gameObject.AddComponent<ArachnidBehavior>();
+
+        gameObject.tag = "Enemy";
     }
 
     private void ProcessBlob(GameObject gameObject)
@@ -92,6 +94,8 @@ public class FbxModelImporter : AssetPostprocessor
         collider.height = 6f;
 
         gameObject.AddComponent<GlutBehavior>();
+
+        gameObject.tag = "Enemy";
     }
 
     private void ProcessHumanoid(GameObject gameObject)
@@ -121,5 +125,7 @@ public class FbxModelImporter : AssetPostprocessor
         navMeshAgent.avoidancePriority = 50;
 
         gameObject.AddComponent<HumanoidBehavior>();
+    
+        gameObject.tag = "Enemy";
     }
 }
