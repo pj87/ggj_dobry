@@ -35,7 +35,7 @@ public class EnemyBehaviour : MonoBehaviour
 			if ((atak++) % 30 == 0) 
 			{
 				//zabieranie zycia graczowi
-				player.GetComponent<player>.recieveDamage(5);
+				player.GetComponent<Character>().reciveDamage(5);
 			}
 
         }
