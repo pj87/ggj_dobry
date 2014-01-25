@@ -82,6 +82,7 @@ public class Character : MonoBehaviour {
 			}
 		}
 
+		//obsluga chodzenia
         Vector3 moveVector = new Vector3();
         var hAxis = Input.GetAxis("Horizontal");
         var vAxis = Input.GetAxis("Vertical");
@@ -97,44 +98,16 @@ public class Character : MonoBehaviour {
         
         //Vector3 speed : Vector3 = Vector3 (3, 0, 0);
         rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
-        if(hAxis > 0 && vAxis == 0)
-        {
-            angle = 0;
-        }
-        else if(hAxis > 0 && vAxis > 0)
-        {
-            angle = -45f;
-        }
-        else if(hAxis == 0 && vAxis > 0)
-        {
-            angle = -90f;
-        }
-        else if(hAxis < 0 && vAxis > 0)
-        {
-            angle = -135f;
-        }
-        else if(hAxis < 0 && vAxis == 0)
-        {
-            angle = -180f;
-        }
-        else if(hAxis < 0 && vAxis < 0)
-        {
-            angle = -225f;
-        }
-        else if(hAxis == 0 && vAxis < 0)
-        {
-            angle = -270f;
-        }
-        else if(hAxis > 0 && vAxis < 0)
-        {
-            angle = -315f;
-        } 
 
-        transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, angle - 270, 0); 
+		//obsluga myszy
+		var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+		observationPoint.y = 0.5f;
+		transform.LookAt(observationPoint);
 
         var cameraPosition = this.transform.position;
         cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
         Camera.main.transform.position = cameraPosition;
+
 	}
 
     void OnTriggerEnter(Collider collider)
@@ -143,7 +116,6 @@ public class Character : MonoBehaviour {
         {
             Debug.Log("Finished LEVEL!!!!!");
             mainCamera_.GetComponent<EndLevel>().setPlayerFinished(true); 
-            //audio.PlayOneShot(playerHit);
         }
     }
 
@@ -158,7 +130,7 @@ public class Character : MonoBehaviour {
 	//gracz otrzymuje obrazenia
 	public void reciveDamage(int damage)
 	{
-		Debug.Log (playerHP);
+		audio.PlayOneShot(playerHit);
 		if(playerHP - damage <= 0)
 		{
 			playerHP = 0;
@@ -172,8 +144,7 @@ public class Character : MonoBehaviour {
 	//gracz umarl
 	void death()
 	{
-		//TODO mi gracza 
-		Debug.Log ("zgon"); 
+		audio.PlayOneShot(playerDeath);
         mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true); 
 	}
 }

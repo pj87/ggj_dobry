@@ -15,7 +15,7 @@ public class GUIScript : MonoBehaviour {
     {
         life = player.GetComponent<Character>().getPlayerHp(); 
 
-        GUI.Box(new Rect(10, 10, Screen.width / 2 / (life / 100.0f), 25), life + "/" + 100); 
+        GUI.Box(new Rect(10, 10, Screen.width / (2 / (life / 100.0f)), 25), life + "/" + 100); 
 
         //GUILayout.BeginArea(new Rect(Screen.width-200, 0, 5000, 500)); 
         //Tutaj można sobie forem wyświetlać jakieś fajne listy 

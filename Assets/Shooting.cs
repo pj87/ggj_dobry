@@ -27,20 +27,16 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && shooting == true) 
+        if (Input.GetMouseButtonDown(0) && shooting == true) 
         {
             var b = (GameObject) Instantiate(bullet, transform.position, Quaternion.identity) as GameObject; 
 
             //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180)); 
-            b.rigidbody.AddForce(transform.forward * 5000); 
-
-            Debug.Log("transform.forward: " + transform.forward); 
+            b.rigidbody.AddForce(transform.forward * 5000);
 
             numBullets--; 
 
             audio.PlayOneShot(shotSound); 
-
-            //audio.Play(shotSound); 
 
             lista.Add(b); 
         } 

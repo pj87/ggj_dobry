@@ -40,7 +40,7 @@ public class EndLevel : MonoBehaviour {
         {
             changeScreen_ = false;
             Invoke("goToCredits", 4); 
-            //Application.LoadLevel("welcome");
+            //Application.LoadLevel("welcome"); 
         } 
         //if (player.GetComponent<Character>().getPlayerHp() <= 0)
             //DisplayResult(); 

@@ -115,7 +115,7 @@ public class Welcome : MonoBehaviour
 
         if (MenuHelper.GUILayoutButton("Start"))
         {
-            Application.LoadLevel("testEnemy");
+            Application.LoadLevel("Level01");
         }
         GUILayout.Space(buttonSpacing);
         if (MenuHelper.GUILayoutButton("Credits"))
