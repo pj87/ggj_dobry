@@ -27,7 +27,7 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl) && shooting == true) 
+        if (Input.GetMouseButtonDown(0) && shooting == true) 
         {
             var b = (GameObject) Instantiate(bullet, transform.position, Quaternion.identity) as GameObject; 
 
