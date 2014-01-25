@@ -25,7 +25,7 @@ public class Shooting : MonoBehaviour
             var b = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
 
             //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180));
-            b.rigidbody.AddForce(transform.forward * 20);
+            b.rigidbody.AddForce(transform.forward * 800);
 
             Debug.Log("transform.forward: " + transform.forward); 
 
