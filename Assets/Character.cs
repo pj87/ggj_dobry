@@ -130,7 +130,10 @@ public class Character : MonoBehaviour {
             angle = -315f;
         } 
 
-        transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, angle - 270, 0); 
+		//obsluga myszy
+		var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+		observationPoint.y = 0.5f;
+		transform.LookAt(observationPoint);
 
         var cameraPosition = this.transform.position;
         cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
@@ -143,7 +146,6 @@ public class Character : MonoBehaviour {
         {
             Debug.Log("Finished LEVEL!!!!!");
             mainCamera_.GetComponent<EndLevel>().setPlayerFinished(true); 
-            //audio.PlayOneShot(playerHit);
         }
     }
 
@@ -158,7 +160,7 @@ public class Character : MonoBehaviour {
 	//gracz otrzymuje obrazenia
 	public void reciveDamage(int damage)
 	{
-		Debug.Log (playerHP);
+		audio.PlayOneShot(playerHit);
 		if(playerHP - damage <= 0)
 		{
 			playerHP = 0;
@@ -172,8 +174,7 @@ public class Character : MonoBehaviour {
 	//gracz umarl
 	void death()
 	{
-		//TODO mi gracza 
-		Debug.Log ("zgon"); 
+		audio.PlayOneShot(playerDeath);
         mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true); 
 	}
 }
