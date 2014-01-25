@@ -22,6 +22,8 @@ public class Character : MonoBehaviour {
 	public AudioClip playerStepFull;
 
 	private int playerHP = 100;
+    private GameObject mainCamera_; 
+
 
     public int getPlayerHp()
     {
@@ -37,6 +39,8 @@ public class Character : MonoBehaviour {
 		visionBLight.enabled = false;
 		visionBTopLight.enabled = false;
 		visionCLight.enabled = false;
+
+        mainCamera_ = GameObject.Find("Main Camera"); 
 	}
 	
 	// Update is called once per frame
@@ -137,7 +141,8 @@ public class Character : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Finish")
         {
-            Debug.Log("Finished LEVEL!!!!!"); 
+            Debug.Log("Finished LEVEL!!!!!");
+            mainCamera_.GetComponent<EndLevel>().setPlayerFinished(true); 
             //audio.PlayOneShot(playerHit);
         }
     }
@@ -167,7 +172,8 @@ public class Character : MonoBehaviour {
 	//gracz umarl
 	void death()
 	{
-		//TODO mi gracza
-		Debug.Log ("zgon");
+		//TODO mi gracza 
+		Debug.Log ("zgon"); 
+        mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true); 
 	}
 }

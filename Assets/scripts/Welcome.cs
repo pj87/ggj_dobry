@@ -46,10 +46,10 @@ public class Welcome : MonoBehaviour
 
         _creatorNames = new string[]
         {
-            "aaaa",
-            "bbbb",
-            "cccc",
-            "dddd"
+            "Programming: Arek Dygas",
+            "Programming: Piotr Łukaszewicz",
+            "Programming: Paweł Jastrzębski", 
+            "Graphics: Piotr Trzebiński" 
         };
 
         ChangeMode(initialMode);
