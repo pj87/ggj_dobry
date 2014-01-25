@@ -7,9 +7,7 @@ public class Shooting : MonoBehaviour
     public GameObject bullet;
     public Vector3 speed;
     //public GameObject weapon;
-    public Transform smoke; 
-
-    //GameObject 
+    public Transform smoke;
 
     public List<GameObject> lista = new List<GameObject>();
     public AudioClip shotSound;
@@ -62,6 +60,6 @@ public class Shooting : MonoBehaviour
     void reloadFinished()
     {
         shooting = true;
-        Destroy(smoke1); 
+        //Destroy(smoke1); 
     }
 } 
