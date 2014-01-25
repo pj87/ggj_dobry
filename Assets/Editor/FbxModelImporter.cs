@@ -39,7 +39,7 @@ public class FbxModelImporter : AssetPostprocessor
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         var navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
-        navMeshAgent.radius = 0.5f;
+        navMeshAgent.radius = 2f;
         navMeshAgent.speed = 10f;
         navMeshAgent.acceleration = 10f;
         navMeshAgent.angularSpeed = 150f;
