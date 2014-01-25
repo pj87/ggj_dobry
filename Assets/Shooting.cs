@@ -6,8 +6,7 @@ public class Shooting : MonoBehaviour
 
     public GameObject bullet;
     public Vector3 speed;
-    //public GameObject weapon;
-    public Transform smoke;
+    //public GameObject weapon 
 
     public List<GameObject> lista = new List<GameObject>();
     public AudioClip shotSound;
@@ -42,8 +41,6 @@ public class Shooting : MonoBehaviour
             audio.PlayOneShot(shotSound); 
 
             //audio.Play(shotSound); 
-
-            var smoke1 = (GameObject)Instantiate(smoke, transform.position, Quaternion.identity) as GameObject; 
 
             lista.Add(b); 
         } 

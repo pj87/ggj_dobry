@@ -30,6 +30,8 @@ public class EndLevel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (playerFinished_ == true) 
+            Application.LoadLevel("welcome"); 
         //if (player.GetComponent<Character>().getPlayerHp() <= 0)
             //DisplayResult(); 
 	} 

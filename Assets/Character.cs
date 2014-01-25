@@ -170,8 +170,8 @@ public class Character : MonoBehaviour {
 	//gracz umarl
 	void death()
 	{
-		//TODO mi gracza
-		Debug.Log ("zgon");
+		//TODO mi gracza 
+		Debug.Log ("zgon"); 
         mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true); 
 	}
 }
