@@ -19,9 +19,11 @@ public class BulletBehaviour : MonoBehaviour {
     {
         //collision.collider.gameObject 
         //Debug.Log("Collision with other objects..."); 
-        //if (collision.gameObject.layer == enemyLayer)
-        if (collision.collider.gameObject.name == "pajenczak") 
-            Debug.Log("Collision with pajeczak..."); 
+        if (collision.gameObject.layer == enemyLayer)
+        {
+            Debug.Log("Collision with pajeczak...");
+            Destroy(collision.gameObject); 
+        } 
         Destroy(gameObject);
     } 
 }
