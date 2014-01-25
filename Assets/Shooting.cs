@@ -9,7 +9,7 @@ public class Shooting : MonoBehaviour
     //public GameObject weapon;
 
     public List<GameObject> lista = new List<GameObject>();
-
+    public AudioClip shotSound;
     // Use this for initialization 
     void Start()
     {
@@ -27,7 +27,10 @@ public class Shooting : MonoBehaviour
             //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180));
             b.rigidbody.AddForce(transform.forward * 800);
 
-            Debug.Log("transform.forward: " + transform.forward); 
+            Debug.Log("transform.forward: " + transform.forward);
+
+            audio.PlayOneShot(shotSound);
+            //audio.Play(shotSound); 
 
             lista.Add(b);
         }
