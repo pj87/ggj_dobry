@@ -10,7 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     private GameObject player;
     private int pathFinding = 0;
 	private int atakCooldown = 0;
-	public abstract int damage{ get;}
+	public virtual int damage{ get{ return 0; }}
 
     private Animator _animator;
 
@@ -36,7 +36,7 @@ public class EnemyBehaviour : MonoBehaviour
 			if ((atakCooldown++) % 30 == 0) 
 			{
 				//zabieranie zycia graczowi
-				player.GetComponent<player>.recieveDamage(5);
+				player.GetComponent<Character>().reciveDamage(damage);
 			}
 
         }
