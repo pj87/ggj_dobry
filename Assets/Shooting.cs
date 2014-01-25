@@ -18,7 +18,7 @@ public class Shooting : MonoBehaviour
     // Use this for initialization 
     void Start()
     {
-        numBullets = 5;
+        numBullets = 1;
         shooting = true; 
         //player = GameObject.Find("3rd Person Controller");
         //player.transform.position. 
@@ -32,7 +32,7 @@ public class Shooting : MonoBehaviour
             var b = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
 
             //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180));
-            b.rigidbody.AddForce(transform.forward * 800);
+            b.rigidbody.AddForce(transform.forward * 5000);
 
             Debug.Log("transform.forward: " + transform.forward);
 
@@ -48,7 +48,7 @@ public class Shooting : MonoBehaviour
         {
             shooting = false;
             audio.PlayOneShot(reloadSound);
-            numBullets = 5; 
+            numBullets = 1; 
             Invoke("reloadFinished", 1); 
         } 
     } 
