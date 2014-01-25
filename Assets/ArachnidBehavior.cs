@@ -6,6 +6,8 @@ public class ArachnidBehavior : MonoBehaviour
 	private NavMeshAgent agent;
 	private GameObject player;
 	private int i = 0;
+
+    private Animator _animator;
 	
 	// Use this for initialization
 	void Start () 
@@ -13,12 +15,25 @@ public class ArachnidBehavior : MonoBehaviour
 		agent = GetComponent<NavMeshAgent> ();
 		player = GameObject.FindGameObjectWithTag("Player");
 		//InvokeRepeating ("pathUpdate", 0, 1f);
+
+        _animator = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if ((player.transform.position - this.transform.position).magnitude <= 5) 
+        var distanceToPlayerVector = player.transform.position - this.transform.position;
+        var sqrOfDistanceToPlayer = distanceToPlayerVector.sqrMagnitude;
+        if (sqrOfDistanceToPlayer < 1 || sqrOfDistanceToPlayer < 9 && Vector3.Angle(distanceToPlayerVector, transform.forward) < 45f)
+        {
+            _animator.SetBool("IsAttacking", true);
+        }
+        else
+        {
+            _animator.SetBool("IsAttacking", false);
+        }
+
+        if (sqrOfDistanceToPlayer <= 25)
 		{
 			if ((i++) % 5 == 0) 
 			{
