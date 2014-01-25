@@ -126,6 +126,15 @@ public class Character : MonoBehaviour {
         Camera.main.transform.position = cameraPosition;
 	}
 
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "Finish")
+        {
+            Debug.Log("Finished LEVEL!!!!!"); 
+            //audio.PlayOneShot(playerHit);
+        }
+    }
+
 	void OnCollisionEnter(Collision collider)
 	{
 		if (collider.gameObject.tag == "Enemy") 
