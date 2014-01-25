@@ -54,6 +54,7 @@ ModelImporter:
     4300000: pajenczak
     7400000: Move
     7400002: Attack
+    7400004: Death
     9500000: //RootNode
     13700000: pajenczak
   materials:
@@ -81,8 +82,8 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -150,6 +151,80 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 31
       lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone003
+        weight: 1
+      - path: Bone001/Bone003/Bone004
+        weight: 1
+      - path: Bone001/Bone003/Bone004/Bone005
+        weight: 1
+      - path: Bone001/Bone003/Bone004/Bone005/Bone006
+        weight: 1
+      - path: Bone001/Bone008
+        weight: 1
+      - path: Bone001/Bone008/Bone007
+        weight: 1
+      - path: Bone001/Bone008/Bone007/Bone009
+        weight: 1
+      - path: Bone001/Bone008/Bone007/Bone009/Bone010
+        weight: 1
+      - path: Bone001/Bone017
+        weight: 1
+      - path: Bone001/Bone017/Bone014
+        weight: 1
+      - path: Bone001/Bone017/Bone014/Bone011
+        weight: 1
+      - path: Bone001/Bone017/Bone014/Bone011/Bone016
+        weight: 1
+      - path: Bone001/Bone018
+        weight: 1
+      - path: Bone001/Bone018/Bone013
+        weight: 1
+      - path: Bone001/Bone018/Bone013/Bone012
+        weight: 1
+      - path: Bone001/Bone018/Bone013/Bone012/Bone015
+        weight: 1
+      - path: Bone001/Bone019
+        weight: 1
+      - path: Bone001/Bone019/Bone020
+        weight: 1
+      - path: Bone001/Bone021
+        weight: 1
+      - path: Bone001/Bone022
+        weight: 1
+      - path: pajenczak
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Death
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
