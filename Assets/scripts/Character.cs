@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Character : MonoBehaviour {
+public class Character : MonoBehaviour 
+{
+	private int playerHP = 100;	//punkty zycia gracza
 
     public float angle; 
 
@@ -132,5 +134,24 @@ public class Character : MonoBehaviour {
 		}
 	}
 
+	//funkcja aplikujaca obrazenia graczowi
+	public void applyDamage(int damage)
+	{
+		audio.PlayOneShot(playerHit);
+		if(playerHP - damage <= 0)
+		{
+			playerHP = 0;
+			playerDies();
+		}else
+		{
+			playerHP = playerHP - damage;
+		}
+	}
 
+	//funkcja oznajmiajaca smierc gracza
+	public void playerDies()
+	{
+		audio.PlayOneShot(playerDeath);
+		//TODO koniec gry, animacja smierci
+	}
 }
