@@ -9,9 +9,21 @@ public class EnemyController : MonoBehaviour {
     private Character _playerScript;
 
     public float enemyInvisibleAlpha = 0.2f;
+
     public Material arachnidMaterial;
+    public RuntimeAnimatorController arachnidAnimatorController;
+    public AudioClip arachnidAudioAlert;
+    public AudioClip arachnidAudioDeath;
+
     public Material blobMaterial;
+    public RuntimeAnimatorController blobAnimatorController;
+    public AudioClip blobAudioAlert;
+    public AudioClip blobAudioDeath;
+
     public Material humanoidMaterial;
+    public RuntimeAnimatorController humanoidAnimatorController;
+    public AudioClip humanoidAudioAlert;
+    public AudioClip humanoidAudioDeath;
 
 	// Use this for initialization
 	void Start ()
@@ -19,17 +31,27 @@ public class EnemyController : MonoBehaviour {
         foreach (var enemy in FindObjectsOfType<EnemyBehaviour>())
         {
             var renderer = enemy.GetComponentInChildren<Renderer>();
+            var animator = enemy.GetComponentInChildren<Animator>();
             if(enemy is ArachnidBehavior)
             {
                 renderer.material = arachnidMaterial;
+                animator.runtimeAnimatorController = arachnidAnimatorController;
+                enemy.audioAlert = arachnidAudioAlert;
+                enemy.audioDeath = arachnidAudioDeath;
             }
             if(enemy is HumanoidBehavior)
             {
                 renderer.material = humanoidMaterial;
+                animator.runtimeAnimatorController = humanoidAnimatorController;
+                enemy.audioAlert = humanoidAudioAlert;
+                enemy.audioDeath = humanoidAudioDeath;
             }
             if(enemy is GlutBehavior)
             {
                 renderer.material = blobMaterial;
+                animator.runtimeAnimatorController = blobAnimatorController;
+                enemy.audioAlert = blobAudioAlert;
+                enemy.audioDeath = blobAudioDeath;
             }
         }
 

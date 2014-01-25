@@ -7,7 +7,7 @@ public class FbxModelImporter : AssetPostprocessor
 {
     private const string ModelNameArachnid = "pajenczak";
     private const string ModelNameBlob = "glut";
-    private const string ModelNameHumanoid = "tromboglow";
+    private const string ModelNameHumanoid = "trmboglow";
     private const string ModelNamePlayer = "laska";
 
     public void OnPostprocessModel(GameObject gameObject)
@@ -57,6 +57,8 @@ public class FbxModelImporter : AssetPostprocessor
         collider.radius = 1.5f;
         collider.height = 6f;
 
+        var audioSource = gameObject.AddComponent<AudioSource>();
+
         gameObject.AddComponent<ArachnidBehavior>();
 
         gameObject.tag = "Enemy";
@@ -92,6 +94,8 @@ public class FbxModelImporter : AssetPostprocessor
         collider.center = new Vector3(0.064f, 0.045f, -0.818f);
         collider.size = new Vector3(2f, 2.5f, 1.7f);
 
+        var audioSource = gameObject.AddComponent<AudioSource>();
+
         gameObject.AddComponent<GlutBehavior>();
 
         gameObject.tag = "Enemy";
@@ -122,6 +126,8 @@ public class FbxModelImporter : AssetPostprocessor
         navMeshAgent.baseOffset = 1f;
         navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         navMeshAgent.avoidancePriority = 50;
+
+        var audioSource = gameObject.AddComponent<AudioSource>();
 
         gameObject.AddComponent<HumanoidBehavior>();
     

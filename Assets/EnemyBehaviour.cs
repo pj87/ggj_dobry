@@ -15,6 +15,9 @@ public class EnemyBehaviour : MonoBehaviour
 	public virtual int maxEnemyHP{ get {return 0;}}
 	public int enemyHP;
 
+    public AudioClip audioAlert;
+    public AudioClip audioDeath;
+
     private Animator _animator;
 
     // Use this for initialization
@@ -85,12 +88,15 @@ public class EnemyBehaviour : MonoBehaviour
 	}
 
 	//dzwiek aktywacji
-	public virtual void alertSound()
+	public void alertSound()
 	{
+        audio.PlayOneShot(audioAlert);
 	}
 
 	//dzwiek smierci
-	public virtual void death()
+	public void death()
 	{
-	}
+        _animator.Play("Death");
+        audio.PlayOneShot(audioDeath);
+    }
 }
