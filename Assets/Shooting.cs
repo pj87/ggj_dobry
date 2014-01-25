@@ -7,6 +7,7 @@ public class Shooting : MonoBehaviour
     public GameObject bullet;
     public Vector3 speed;
     //public GameObject weapon;
+    public Transform smoke; 
 
     public List<GameObject> lista = new List<GameObject>();
     public AudioClip shotSound;
@@ -29,25 +30,28 @@ public class Shooting : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftControl) && shooting == true) 
         {
-            var b = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
+            var b = (GameObject) Instantiate(bullet, transform.position, Quaternion.identity) as GameObject; 
 
-            //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180));
-            b.rigidbody.AddForce(transform.forward * 5000);
+            //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180)); 
+            b.rigidbody.AddForce(transform.forward * 5000); 
 
-            Debug.Log("transform.forward: " + transform.forward);
+            Debug.Log("transform.forward: " + transform.forward); 
 
             numBullets--; 
 
-            audio.PlayOneShot(shotSound);
+            audio.PlayOneShot(shotSound); 
+
             //audio.Play(shotSound); 
 
-            lista.Add(b);
-        }
+            var smoke1 = (GameObject)Instantiate(smoke, transform.position, Quaternion.identity) as GameObject; 
+
+            lista.Add(b); 
+        } 
         
-        if (numBullets <= 0)
-        {
-            shooting = false;
-            audio.PlayOneShot(reloadSound);
+        if (numBullets <= 0) 
+        { 
+            shooting = false; 
+            audio.PlayOneShot(reloadSound); 
             numBullets = 1; 
             Invoke("reloadFinished", 1); 
         } 
@@ -56,5 +60,6 @@ public class Shooting : MonoBehaviour
     void reloadFinished()
     {
         shooting = true;
+        //Destroy(smoke); 
     }
 } 
