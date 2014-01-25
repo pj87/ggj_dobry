@@ -21,6 +21,11 @@ public class Character : MonoBehaviour {
 
 	private int playerHP = 100;
 
+    public int getPlayerHp()
+    {
+        return playerHP; 
+    }
+
 	// Use this for initialization
 	void Start ()
 	{
