@@ -3,6 +3,7 @@ using System.Collections;
 
 public class BulletBehaviour : MonoBehaviour {
 
+	int damage=1;
     int enemyLayer;
 
 	// Use this for initialization
@@ -18,8 +19,7 @@ public class BulletBehaviour : MonoBehaviour {
     {
         if (collision.gameObject.layer == enemyLayer)
         {
-            Debug.Log("Collision with pajeczak..."); 
-            Destroy(collision.gameObject); 
+			collision.gameObject.GetComponent<EnemyBehaviour>().recieveDamage(damage);
         } 
         Destroy(gameObject); 
     } 
