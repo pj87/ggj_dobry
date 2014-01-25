@@ -30,7 +30,7 @@ public class Character : MonoBehaviour {
         rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
         if(hAxis > 0 && vAxis == 0)
         {
-            //angle = 0;
+            angle = 0;
         }
         else if(hAxis > 0 && vAxis > 0)
         {
