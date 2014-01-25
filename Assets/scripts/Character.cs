@@ -61,7 +61,7 @@ public class Character : MonoBehaviour {
             angle = -315f;
         } 
 
-        transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, angle, 0); 
+        transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, angle - 270, 0); 
 
         var cameraPosition = this.transform.position;
         cameraPosition.Set(cameraPosition.x, 10f, cameraPosition.z);
