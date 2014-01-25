@@ -12,6 +12,13 @@ public class Character : MonoBehaviour {
 	public Light visionCLight;	//czerwona
 
 	private int visionMode = 0;	//tryb wizji, 0-latarka, 1-niebieska, 2-czerwona
+
+	public AudioClip playerHit;
+	public AudioClip playerDeath;
+	public AudioClip playerStepA;
+	public AudioClip playerStepB;
+	public AudioClip playerStepFull;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -26,6 +33,7 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+		//obsluga zmiany wizji
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
 			visionMode++;
@@ -115,4 +123,14 @@ public class Character : MonoBehaviour {
         cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
         Camera.main.transform.position = cameraPosition;
 	}
+
+	void OnCollisionEnter(Collision collider)
+	{
+		if (collider.gameObject.tag == "Enemy") 
+		{
+			audio.PlayOneShot(playerHit);
+		}
+	}
+
+
 }
