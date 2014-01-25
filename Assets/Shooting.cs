@@ -40,8 +40,6 @@ public class Shooting : MonoBehaviour
 
             audio.PlayOneShot(shotSound); 
 
-            //audio.Play(shotSound); 
-
             lista.Add(b); 
         } 
         

@@ -82,6 +82,7 @@ public class Character : MonoBehaviour {
 			}
 		}
 
+		//obsluga chodzenia
         Vector3 moveVector = new Vector3();
         var hAxis = Input.GetAxis("Horizontal");
         var vAxis = Input.GetAxis("Vertical");
@@ -97,38 +98,6 @@ public class Character : MonoBehaviour {
         
         //Vector3 speed : Vector3 = Vector3 (3, 0, 0);
         rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
-        if(hAxis > 0 && vAxis == 0)
-        {
-            angle = 0;
-        }
-        else if(hAxis > 0 && vAxis > 0)
-        {
-            angle = -45f;
-        }
-        else if(hAxis == 0 && vAxis > 0)
-        {
-            angle = -90f;
-        }
-        else if(hAxis < 0 && vAxis > 0)
-        {
-            angle = -135f;
-        }
-        else if(hAxis < 0 && vAxis == 0)
-        {
-            angle = -180f;
-        }
-        else if(hAxis < 0 && vAxis < 0)
-        {
-            angle = -225f;
-        }
-        else if(hAxis == 0 && vAxis < 0)
-        {
-            angle = -270f;
-        }
-        else if(hAxis > 0 && vAxis < 0)
-        {
-            angle = -315f;
-        } 
 
 		//obsluga myszy
 		var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
@@ -138,6 +107,7 @@ public class Character : MonoBehaviour {
         var cameraPosition = this.transform.position;
         cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
         Camera.main.transform.position = cameraPosition;
+
 	}
 
     void OnTriggerEnter(Collider collider)
