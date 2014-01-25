@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class enemyChaseScript : MonoBehaviour 
+public class ArachnidBehavior : MonoBehaviour 
 {
 	private NavMeshAgent agent;
 	private GameObject player;
 	private int i = 0;
-
+	
 	// Use this for initialization
 	void Start () 
 	{
@@ -18,12 +18,21 @@ public class enemyChaseScript : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if ( (i++)%30 == 0) 
+		if ((player.transform.position - this.transform.position).magnitude <= 5) 
 		{
-			agent.SetDestination (player.transform.position);
+			if ((i++) % 5 == 0) 
+			{
+				agent.SetDestination (player.transform.position);
+			}
+		} else 
+		{
+			if ((i++) % 60 == 0) 
+			{
+				agent.SetDestination (player.transform.position);
+			}
 		}
 	}
-
+	
 	void pathUpdate()
 	{
 		//agent.SetDestination (player.transform.position);

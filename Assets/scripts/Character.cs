@@ -1,18 +1,66 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Character : MonoBehaviour {
 
     public float angle; 
 
+	public Light visionALongLight;	//latarka
+	public Light visionAShortLight;
+	public Light visionBLight;	//niebieska
+	public Light visionBTopLight;
+	public Light visionCLight;	//czerwona
+
+	private int visionMode = 0;	//tryb wizji, 0-latarka, 1-niebieska, 2-czerwona
 	// Use this for initialization
-	void Start () {
-	    
+	void Start ()
+	{
+		//ustawienie wizje na latarke
+		visionALongLight.enabled = true;
+		visionAShortLight.enabled = true;
+		visionBLight.enabled = false;
+		visionBTopLight.enabled = false;
+		visionCLight.enabled = false;
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
+		if(Input.GetKeyDown(KeyCode.Q))
+		{
+			visionMode++;
+			if(visionMode >= 3)
+			{
+				visionMode = 0;
+			}
+
+			Debug.Log(visionMode);
+			if(visionMode == 0)	//latarka
+			{
+				visionALongLight.enabled = true;
+				visionAShortLight.enabled = true;
+				visionBLight.enabled = false;
+				visionBTopLight.enabled = false;
+				visionCLight.enabled = false;
+			}
+			if(visionMode == 1)	//niebieska
+			{
+				visionALongLight.enabled = false;
+				visionAShortLight.enabled = false;
+				visionBLight.enabled = true;
+				visionBTopLight.enabled = true;
+				visionCLight.enabled = false;
+			}
+			if(visionMode == 2)	//czerwona
+			{
+				visionALongLight.enabled = false;
+				visionAShortLight.enabled = false;
+				visionBLight.enabled = false;
+				visionBTopLight.enabled = false;
+				visionCLight.enabled = true;
+			}
+		}
+
         Vector3 moveVector = new Vector3();
         var hAxis = Input.GetAxis("Horizontal");
         var vAxis = Input.GetAxis("Vertical");
@@ -64,7 +112,7 @@ public class Character : MonoBehaviour {
         transform.eulerAngles = new Vector3(transform.rotation.eulerAngles.x, angle - 270, 0); 
 
         var cameraPosition = this.transform.position;
-        cameraPosition.Set(cameraPosition.x, 10f, cameraPosition.z);
+        cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
         Camera.main.transform.position = cameraPosition;
 	}
 }
