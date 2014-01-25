@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Welcome : MonoBehaviour
 {
-    private enum Mode
+    public enum Mode
     {
         Invalid,
         Init,
@@ -16,22 +16,21 @@ public class Welcome : MonoBehaviour
     public float _guiAlpha = 0;
 
     private bool _areStylesInitialized = false;
-    private GUIStyle _styleButton;
     private GUIStyle _styleCreditsTitle;
     private GUIStyle _styleCreditsNames;
 
+    public static Mode initialMode = Mode.Init;
     private Mode _mode = Mode.Invalid;
     private bool _modeChanging = false;
-
-    private GUILayoutOption[] _optionsMenuButton;
 
     private Rect _menuRect;
     private Rect _creditsRect;
 
     private string[] _creatorNames;
 
-	void Awake()
+	void Start()
     {
+        Debug.Log("start");
         float menuWidth = 300f;
         float menuHeight = 250f;
         float creditsWidth = 450f;
@@ -41,11 +40,6 @@ public class Welcome : MonoBehaviour
         var menuTop = (Screen.height - menuHeight) * 0.5f;
         var creditsLeft = (Screen.width - creditsWidth) * 0.5f;
         var creditsTop = (Screen.height - creditsHeight) * 0.5f;
-
-        _optionsMenuButton = new GUILayoutOption[]
-        {
-            GUILayout.Height(45f)
-        };
 
         _menuRect = new Rect(menuLeft, menuTop, menuWidth, menuHeight);
         _creditsRect = new Rect(creditsLeft, creditsTop, creditsWidth, creditsHeight);
@@ -58,7 +52,7 @@ public class Welcome : MonoBehaviour
             "dddd"
         };
 
-        ChangeMode(Mode.Init);
+        ChangeMode(initialMode);
 	}
 	
 	// Update is called once per frame
@@ -100,11 +94,6 @@ public class Welcome : MonoBehaviour
 
     private void InitStyles()
     {
-        _styleButton = new GUIStyle(GUI.skin.button);
-        _styleButton.fontStyle = FontStyle.Bold;
-        _styleButton.fontSize = 18;
-        _styleButton.normal.textColor = Color.gray;
-
         _styleCreditsTitle = new GUIStyle(GUI.skin.label);
         _styleCreditsTitle.alignment = TextAnchor.MiddleCenter;
         _styleCreditsTitle.fontStyle = FontStyle.Bold;
@@ -124,28 +113,23 @@ public class Welcome : MonoBehaviour
         GUILayout.BeginArea(_menuRect);
         GUILayout.BeginVertical();
 
-        if (GUILayoutButtonEx("Start"))
+        if (MenuHelper.GUILayoutButton("Start"))
         {
-            Application.LoadLevel("game");
+            Application.LoadLevel("testEnemy");
         }
         GUILayout.Space(buttonSpacing);
-        if (GUILayoutButtonEx("Credits"))
+        if (MenuHelper.GUILayoutButton("Credits"))
         {
             ChangeMode(Mode.Credits);
         }
         GUILayout.Space(buttonSpacing);
-        if (GUILayoutButtonEx("Exit"))
+        if (MenuHelper.GUILayoutButton("Exit"))
         {
             Application.Quit();
         }
 
         GUILayout.EndVertical();
         GUILayout.EndArea();
-    }
-
-    private bool GUILayoutButtonEx(string text)
-    {
-        return GUILayout.Button(text, _styleButton, _optionsMenuButton);
     }
 
     void ShowCredits()
@@ -164,7 +148,7 @@ public class Welcome : MonoBehaviour
 
         if (_mode == Mode.Credits)
         {
-            if (GUILayoutButtonEx("Back"))
+            if (MenuHelper.GUILayoutButton("Back"))
             {
                 ChangeMode(Mode.Menu);
             }
@@ -181,6 +165,7 @@ public class Welcome : MonoBehaviour
 
     private IEnumerator ChangeModeCoroutine(Mode mode)
     {
+        Debug.Log("mode changing: " + mode);
         if (_modeChanging)
         {
             yield break;
@@ -194,7 +179,6 @@ public class Welcome : MonoBehaviour
             while(_guiAlpha > 0)
             {
                 _guiAlpha = Mathf.Clamp01(_guiAlpha - Time.deltaTime * 0.5f);
-                print("out: " + _guiAlpha);
                 yield return null;
             }
         }
