@@ -4,6 +4,7 @@ using System.Collections;
 public class Character : MonoBehaviour {
 
     public float angle; 
+	private bool alive = true;
 
 	public Light visionALongLight;	//latarka
 	public Light visionAShortLight;
@@ -28,7 +29,6 @@ public class Character : MonoBehaviour {
 	private int playerHP = 100;
     private GameObject mainCamera_; 
 
-
     public int getPlayerHp()
     {
         return playerHP; 
@@ -50,71 +50,73 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-		//obsluga zmiany wizji
-		if(Input.GetKeyDown(KeyCode.Q))
+		if(alive)
 		{
-			visionMode++;
-			if(visionMode >= 3)
+			//obsluga zmiany wizji
+			if(Input.GetKeyDown(KeyCode.Q))
 			{
-				visionMode = 0;
+				visionMode++;
+				if(visionMode >= 3)
+				{
+					visionMode = 0;
+				}
+
+				Debug.Log(visionMode);
+				if(visionMode == 0)	//latarka
+				{
+					audio.PlayOneShot(visionA);
+					visionALongLight.enabled = true;
+					visionAShortLight.enabled = true;
+					visionBLight.enabled = false;
+					visionBTopLight.enabled = false;
+					visionCLight.enabled = false;
+				}
+				if(visionMode == 1)	//niebieska
+				{
+					audio.PlayOneShot(visionB);
+					visionALongLight.enabled = false;
+					visionAShortLight.enabled = false;
+					visionBLight.enabled = true;
+					visionBTopLight.enabled = true;
+					visionCLight.enabled = false;
+				}
+				if(visionMode == 2)	//czerwona
+				{
+					audio.PlayOneShot(visionC);
+					visionALongLight.enabled = false;
+					visionAShortLight.enabled = false;
+					visionBLight.enabled = false;
+					visionBTopLight.enabled = false;
+					visionCLight.enabled = true;
+				}
 			}
 
-			Debug.Log(visionMode);
-			if(visionMode == 0)	//latarka
-			{
-				audio.PlayOneShot(visionA);
-				visionALongLight.enabled = true;
-				visionAShortLight.enabled = true;
-				visionBLight.enabled = false;
-				visionBTopLight.enabled = false;
-				visionCLight.enabled = false;
-			}
-			if(visionMode == 1)	//niebieska
-			{
-				audio.PlayOneShot(visionB);
-				visionALongLight.enabled = false;
-				visionAShortLight.enabled = false;
-				visionBLight.enabled = true;
-				visionBTopLight.enabled = true;
-				visionCLight.enabled = false;
-			}
-			if(visionMode == 2)	//czerwona
-			{
-				audio.PlayOneShot(visionC);
-				visionALongLight.enabled = false;
-				visionAShortLight.enabled = false;
-				visionBLight.enabled = false;
-				visionBTopLight.enabled = false;
-				visionCLight.enabled = true;
-			}
+			//obsluga chodzenia
+	        Vector3 moveVector = new Vector3();
+	        var hAxis = Input.GetAxis("Horizontal");
+	        var vAxis = Input.GetAxis("Vertical");
+	        if (hAxis != 0)
+	        {
+	            moveVector.x = hAxis > 0 ? 1f : -1f;
+	        }
+	        if (vAxis != 0)
+	        {
+	            moveVector.z = vAxis > 0 ? 1f : -1f;
+	        }
+	        transform.position += moveVector * 0.1f;
+	        
+	        //Vector3 speed : Vector3 = Vector3 (3, 0, 0);
+	        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
+
+			//obsluga myszy
+			var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+			observationPoint.y = 0.5f;
+			transform.LookAt(observationPoint);
+
+	        var cameraPosition = this.transform.position;
+	        cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
+	        Camera.main.transform.position = cameraPosition;
 		}
-
-		//obsluga chodzenia
-        Vector3 moveVector = new Vector3();
-        var hAxis = Input.GetAxis("Horizontal");
-        var vAxis = Input.GetAxis("Vertical");
-        if (hAxis != 0)
-        {
-            moveVector.x = hAxis > 0 ? 1f : -1f;
-        }
-        if (vAxis != 0)
-        {
-            moveVector.z = vAxis > 0 ? 1f : -1f;
-        }
-        transform.position += moveVector * 0.1f;
-        
-        //Vector3 speed : Vector3 = Vector3 (3, 0, 0);
-        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
-
-		//obsluga myszy
-		var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-		observationPoint.y = 0.5f;
-		transform.LookAt(observationPoint);
-
-        var cameraPosition = this.transform.position;
-        cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
-        Camera.main.transform.position = cameraPosition;
-
 	}
 
     void OnTriggerEnter(Collider collider)
@@ -153,7 +155,17 @@ public class Character : MonoBehaviour {
 	//gracz umarl
 	void death()
 	{
+		alive = false;
+
 		audio.PlayOneShot(playerDeath);
-        mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true); 
+
+		gameObject.GetComponentInChildren<Shooting> ().playerDeath ();
+
+		visionALongLight.enabled = false;
+		visionAShortLight.enabled = false;
+		visionBLight.enabled = false;
+		visionBTopLight.enabled = false;
+		visionCLight.enabled = false;
+        mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true);
 	}
 }

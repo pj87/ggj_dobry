@@ -6,6 +6,7 @@ public class Shooting : MonoBehaviour
 
     public GameObject bullet;
     public int speed;
+	public bool alive;
 
     public AudioClip shotSound;
     public AudioClip reloadSound;
@@ -17,36 +18,45 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         numBullets = 1;
-        shooting = true;  
+        shooting = true;
+		alive = true;
 		speed = 5000;
     } 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && shooting == true) 
-        {
-            var b = (GameObject) Instantiate(bullet, transform.position, Quaternion.identity) as GameObject; 
+		if(alive)
+		{
+	        if (Input.GetMouseButtonDown(0) && shooting == true) 
+	        {
+	            var b = (GameObject) Instantiate(bullet, transform.position, Quaternion.identity) as GameObject; 
 
-            //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180)); 
-            b.rigidbody.AddForce(transform.forward * speed);
+	            //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180)); 
+	            b.rigidbody.AddForce(transform.forward * speed);
 
-            numBullets--; 
+	            numBullets--; 
 
-            audio.PlayOneShot(shotSound); 
-        } 
-        
-        if (numBullets <= 0) 
-        { 
-            shooting = false; 
-            audio.PlayOneShot(reloadSound); 
-            numBullets = 1; 
-            Invoke("reloadFinished", 1); 
-        } 
+	            audio.PlayOneShot(shotSound); 
+	        } 
+	        
+	        if (numBullets <= 0) 
+	        { 
+	            shooting = false; 
+	            audio.PlayOneShot(reloadSound); 
+	            numBullets = 1; 
+	            Invoke("reloadFinished", 1); 
+	        } 
+		}
     } 
 
     void reloadFinished()
     {
         shooting = true;
     }
+
+	public void playerDeath()
+	{
+		alive = false;
+	}
 } 

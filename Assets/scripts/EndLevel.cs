@@ -48,7 +48,7 @@ public class EndLevel : MonoBehaviour {
         if (playerKilled_ == true)
         {
             GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 2, 400, 50)); 
-            GUILayout.Label("You died... you miserable piece of meat...");
+			GUILayout.Label("You died...");
             GUILayout.EndArea();
             changeScreen_ = true; 
         } 
