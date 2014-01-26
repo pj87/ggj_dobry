@@ -38,6 +38,8 @@ public class Shooting : MonoBehaviour
 	            numBullets--; 
 
 	            audio.PlayOneShot(shotSound); 
+
+				gameObject.GetComponent<ParticleSystem>().Emit(100);
 	        } 
 	        
 	        if (numBullets <= 0) 
