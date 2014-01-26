@@ -126,7 +126,8 @@ public class Character : MonoBehaviour {
 			//obsluga myszy
 			var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 			observationPoint.y = 0.5f;
-			transform.LookAt(observationPoint);
+            transform.Find("laska_cycki").LookAt(observationPoint); 
+			//transform.LookAt(observationPoint);
             //animator_.SetBool("isWalking", true); 
 
 	        var cameraPosition = this.transform.position;
