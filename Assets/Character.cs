@@ -30,6 +30,8 @@ public class Character : MonoBehaviour {
 	private float speed = 1.5f;
     private GameObject mainCamera_; 
 
+    private Animator animator_; 
+
     public int getPlayerHp()
     {
         return playerHP; 
@@ -45,7 +47,10 @@ public class Character : MonoBehaviour {
 		visionBTopLight.enabled = false;
 		visionCLight.enabled = false;
 
-        mainCamera_ = GameObject.Find("Main Camera"); 
+        mainCamera_ = GameObject.Find("Main Camera");
+        //animator_ = GetComponent<Animator>(); 
+        animator_ = GetComponentInChildren<Animator>();
+        animator_.SetBool("isWalking", false); 
 	}
 	
 	// Update is called once per frame
@@ -99,19 +104,22 @@ public class Character : MonoBehaviour {
 	        if (hAxis != 0)
 	        {
 	            moveVector.x = hAxis > 0 ? 1f : -1f;
+                animator_.SetBool("isWalking", true); 
 	        }
 	        if (vAxis != 0)
 	        {
 	            moveVector.z = vAxis > 0 ? 1f : -1f;
+                animator_.SetBool("isWalking", true); 
 	        }
 	        transform.position += (moveVector * 0.1f)*speed;
 	       
-	        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
+	        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime);
 
 			//obsluga myszy
 			var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 			observationPoint.y = 0.5f;
 			transform.LookAt(observationPoint);
+            //animator_.SetBool("isWalking", true); 
 
 	        var cameraPosition = this.transform.position;
 	        cameraPosition.Set(cameraPosition.x, 30f, cameraPosition.z);
