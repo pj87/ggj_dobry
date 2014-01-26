@@ -15,6 +15,10 @@ public class Character : MonoBehaviour {
 
     public int VisionMode { get { return visionMode; } }
 
+	public AudioClip visionA;//dzwieki do zmieniania wizji
+	public AudioClip visionB;
+	public AudioClip visionC;
+		
 	public AudioClip playerHit;
 	public AudioClip playerDeath;
 	public AudioClip playerStepA;
@@ -58,6 +62,7 @@ public class Character : MonoBehaviour {
 			Debug.Log(visionMode);
 			if(visionMode == 0)	//latarka
 			{
+				audio.PlayOneShot(visionA);
 				visionALongLight.enabled = true;
 				visionAShortLight.enabled = true;
 				visionBLight.enabled = false;
@@ -66,6 +71,7 @@ public class Character : MonoBehaviour {
 			}
 			if(visionMode == 1)	//niebieska
 			{
+				audio.PlayOneShot(visionB);
 				visionALongLight.enabled = false;
 				visionAShortLight.enabled = false;
 				visionBLight.enabled = true;
@@ -74,6 +80,7 @@ public class Character : MonoBehaviour {
 			}
 			if(visionMode == 2)	//czerwona
 			{
+				audio.PlayOneShot(visionC);
 				visionALongLight.enabled = false;
 				visionAShortLight.enabled = false;
 				visionBLight.enabled = false;

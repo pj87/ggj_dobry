@@ -3,7 +3,11 @@ using System.Collections;
 
 public class Welcome : MonoBehaviour
 {
-    public enum Mode
+	public AudioClip menuMusic;
+	public AudioClip menuSelectPositive;
+	public AudioClip menuSelectNegative;
+
+	public enum Mode
     {
         Invalid,
         Init,
@@ -30,6 +34,10 @@ public class Welcome : MonoBehaviour
 
 	void Start()
     {
+		audio.clip = menuMusic;
+		audio.loop = true;
+		audio.Play ();
+
         Debug.Log("start");
         float menuWidth = 300f;
         float menuHeight = 250f;
@@ -46,10 +54,10 @@ public class Welcome : MonoBehaviour
 
         _creatorNames = new string[]
         {
-            "Programming: Arek Dygas",
-            "Programming: Piotr Łukaszewicz",
-            "Programming: Paweł Jastrzębski", 
-            "Graphics: Piotr Trzebiński" 
+			"Programming: Arek Dygas",
+			"Programming: Piotr Łukaszewicz",
+			"Programming: Paweł Jastrzębski",
+            "Graphics:    Piotr Trzebiński" 
         };
 
         ChangeMode(initialMode);
@@ -98,12 +106,12 @@ public class Welcome : MonoBehaviour
         _styleCreditsTitle.alignment = TextAnchor.MiddleCenter;
         _styleCreditsTitle.fontStyle = FontStyle.Bold;
         _styleCreditsTitle.fontSize = 26;
-        _styleCreditsTitle.normal.textColor = Color.gray;
+        _styleCreditsTitle.normal.textColor = Color.yellow;
 
         _styleCreditsNames = new GUIStyle(GUI.skin.label);
         _styleCreditsNames.alignment = TextAnchor.MiddleCenter;
         _styleCreditsNames.fontSize = 18;
-        _styleCreditsNames.normal.textColor = Color.gray;
+		_styleCreditsNames.normal.textColor = Color.yellow;
     }
 
     void ShowMenu()
@@ -115,16 +123,20 @@ public class Welcome : MonoBehaviour
 
         if (MenuHelper.GUILayoutButton("Start"))
         {
+			audio.PlayOneShot(menuSelectPositive);
             Application.LoadLevel("Level01");
+			audio.Stop();
         }
         GUILayout.Space(buttonSpacing);
         if (MenuHelper.GUILayoutButton("Credits"))
         {
+			audio.PlayOneShot(menuSelectPositive);
             ChangeMode(Mode.Credits);
         }
         GUILayout.Space(buttonSpacing);
         if (MenuHelper.GUILayoutButton("Exit"))
         {
+			audio.PlayOneShot(menuSelectPositive);
             Application.Quit();
         }
 
@@ -150,6 +162,7 @@ public class Welcome : MonoBehaviour
         {
             if (MenuHelper.GUILayoutButton("Back"))
             {
+				audio.PlayOneShot(menuSelectNegative);
                 ChangeMode(Mode.Menu);
             }
         }
