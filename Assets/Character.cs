@@ -138,7 +138,7 @@ public class Character : MonoBehaviour {
 	//gracz otrzymuje obrazenia
 	public void reciveDamage(int damage)
 	{
-		if(playerHP != 0)
+		if(alive)
 		{
 			audio.PlayOneShot(playerHit);
 			if(playerHP - damage <= 0)
@@ -167,5 +167,11 @@ public class Character : MonoBehaviour {
 		visionBTopLight.enabled = false;
 		visionCLight.enabled = false;
         mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true);
+	}
+
+	//uzywane do ochrony gracza
+	public void setDead()
+	{
+		alive = false;
 	}
 }

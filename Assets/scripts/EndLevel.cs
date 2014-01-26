@@ -54,6 +54,7 @@ public class EndLevel : MonoBehaviour {
         } 
         else if (playerFinished_ == true)
         {
+			player.GetComponent<Character>().setDead();
             GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 2, 400, 50)); 
             GUILayout.Label("You survived... for now..."); 
             GUILayout.EndArea();

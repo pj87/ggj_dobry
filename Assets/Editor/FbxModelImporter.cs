@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using UnityEditorInternal;
@@ -134,3 +134,4 @@ public class FbxModelImporter : AssetPostprocessor
         gameObject.tag = "Enemy";
     }
 }
+*/
