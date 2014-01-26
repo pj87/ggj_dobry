@@ -16,6 +16,10 @@ public class EnemyBehaviour : MonoBehaviour
 	public virtual int maxEnemyHP{ get {return 0;}}
 	public int enemyHP;
 
+	public GameObject blood_ziel;
+	public GameObject blood_czer;
+	public GameObject blood_zol;
+
     public AudioClip audioAlert;
     public AudioClip audioDeath;
 
@@ -104,6 +108,16 @@ public class EnemyBehaviour : MonoBehaviour
 	//dzwiek smierci
 	public void death()
 	{
+		if(GetType() == typeof(ArachnidBehavior))
+		{
+			var b = (GameObject) Instantiate(blood_zol, transform.position, Quaternion.identity) as GameObject; 
+		}else if(GetType() == typeof(GlutBehavior))
+		{
+			var b = (GameObject) Instantiate(blood_ziel, transform.position, Quaternion.identity) as GameObject; 
+		}else
+		{
+			var b = (GameObject) Instantiate(blood_czer, transform.position, Quaternion.identity) as GameObject; 
+		}
 		isAlive = false;
         _animator.Play("Death");
         audio.PlayOneShot(audioDeath);

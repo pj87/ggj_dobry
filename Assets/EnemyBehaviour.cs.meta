@@ -2,7 +2,12 @@ fileFormatVersion: 2
 guid: 1475648dd3058734fb331c653d24ff58
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - blood_ziel: {fileID: 100000, guid: bf71a29baebd7814dbe3cb5c97bd31a9, type: 2}
+  - blood_czer: {fileID: 100000, guid: 406390e219cdcc14e9b76d10df3bf438, type: 2}
+  - blood_zol: {fileID: 100000, guid: 53881b2147081c044beb22b03710d777, type: 2}
+  - audioAlert: {instanceID: 0}
+  - audioDeath: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
