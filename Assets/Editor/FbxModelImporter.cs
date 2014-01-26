@@ -1,4 +1,4 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using UnityEditorInternal;
@@ -15,13 +15,13 @@ public class FbxModelImporter : AssetPostprocessor
         switch (gameObject.name)
         {
             case ModelNameArachnid:
-                ProcessArachnid(gameObject);
+                //ProcessArachnid(gameObject);
                 break;
             case ModelNameBlob:
                 ProcessBlob(gameObject);
                 break;
             case ModelNameHumanoid:
-                ProcessHumanoid(gameObject);
+                //ProcessHumanoid(gameObject);
                 break;
         }
     }
@@ -62,6 +62,7 @@ public class FbxModelImporter : AssetPostprocessor
         gameObject.AddComponent<ArachnidBehavior>();
 
         gameObject.tag = "Enemy";
+        gameObject.layer = LayerMask.NameToLayer("enemy");
     }
 
     private void ProcessBlob(GameObject gameObject)
@@ -77,7 +78,7 @@ public class FbxModelImporter : AssetPostprocessor
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         var navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
-        navMeshAgent.radius = 0.5f;
+        navMeshAgent.radius = 1.6f;
         navMeshAgent.speed = 7f;
         navMeshAgent.acceleration = 7f;
         navMeshAgent.angularSpeed = 100f;
@@ -91,14 +92,15 @@ public class FbxModelImporter : AssetPostprocessor
         navMeshAgent.avoidancePriority = 50;
 
         var collider = gameObject.AddComponent<BoxCollider>();
-        collider.center = new Vector3(0.064f, 0.045f, -0.818f);
-        collider.size = new Vector3(2f, 2.5f, 1.7f);
+        collider.center = new Vector3(0, 2.5f, -0.1f);
+        collider.size = new Vector3(2.9f, 5f, 3.9f);
 
         gameObject.AddComponent<AudioSource>();
 
         gameObject.AddComponent<GlutBehavior>();
 
         gameObject.tag = "Enemy";
+        gameObject.layer = LayerMask.NameToLayer("enemy");
     }
 
     private void ProcessHumanoid(GameObject gameObject)
@@ -132,6 +134,6 @@ public class FbxModelImporter : AssetPostprocessor
         gameObject.AddComponent<HumanoidBehavior>();
     
         gameObject.tag = "Enemy";
+        gameObject.layer = LayerMask.NameToLayer("enemy");
     }
 }
-*/
