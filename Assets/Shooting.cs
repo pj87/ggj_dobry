@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic; 
 public class Shooting : MonoBehaviour
 {
-
+    public Animator animator_;
     public GameObject bullet;
     public int speed;
 	public bool alive;
@@ -25,6 +25,8 @@ public class Shooting : MonoBehaviour
 		alive = true;
 		speed = 10000;
 		barrelFlash.enabled = false;
+
+        animator_.SetBool("isShooting", false); 
     } 
 
     // Update is called once per frame
@@ -44,14 +46,15 @@ public class Shooting : MonoBehaviour
 	            audio.PlayOneShot(shotSound); 
 
 				gameObject.GetComponent<ParticleSystem>().Play();
-				barrelFlash.enabled = true;
+				barrelFlash.enabled = true; 
+                animator_.SetBool("isShooting", true); 
 	        } 
 	        
 	        if (numBullets <= 0) 
 	        { 
 	            shooting = false; 
 	            audio.PlayOneShot(reloadSound); 
-	            numBullets = 1; 
+	            numBullets = 1;
 	            Invoke("reloadFinished", 1); 
 	        } 
 
@@ -73,7 +76,8 @@ public class Shooting : MonoBehaviour
 
     void reloadFinished()
     {
-        shooting = true;
+        animator_.SetBool("isShooting", false); 
+        shooting = true; 
     }
 
 	public void playerDeath()

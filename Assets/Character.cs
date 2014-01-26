@@ -50,7 +50,9 @@ public class Character : MonoBehaviour {
         mainCamera_ = GameObject.Find("Main Camera");
         //animator_ = GetComponent<Animator>(); 
         animator_ = GetComponentInChildren<Animator>();
-        animator_.SetBool("isWalking", false); 
+        animator_.SetBool("isWalking", false);
+        animator_.SetBool("isShooting", false);
+        animator_.SetBool("isDying", false); 
 	}
 	
 	// Update is called once per frame
@@ -111,6 +113,9 @@ public class Character : MonoBehaviour {
 	            moveVector.z = vAxis > 0 ? 1f : -1f;
                 animator_.SetBool("isWalking", true); 
 	        }
+            if (hAxis == 0 && vAxis == 0)
+                animator_.SetBool("isWalking", false); 
+
 	        transform.position += (moveVector * 0.1f)*speed;
 	       
 	        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime);
@@ -167,7 +172,7 @@ public class Character : MonoBehaviour {
 
 		audio.PlayOneShot(playerDeath);
 
-		gameObject.GetComponentInChildren<Shooting> ().playerDeath ();
+		gameObject.GetComponentInChildren<Shooting> ().playerDeath();
 
 		visionALongLight.enabled = false;
 		visionAShortLight.enabled = false;
@@ -175,6 +180,7 @@ public class Character : MonoBehaviour {
 		visionBTopLight.enabled = false;
 		visionCLight.enabled = false;
         mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true);
+        animator_.SetBool("isDying", true); 
 	}
 
 	//uzywane do ochrony gracza
