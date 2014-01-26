@@ -20,7 +20,7 @@ public class Shooting : MonoBehaviour
         numBullets = 1;
         shooting = true;
 		alive = true;
-		speed = 5000;
+		speed = 10000;
     } 
 
     // Update is called once per frame

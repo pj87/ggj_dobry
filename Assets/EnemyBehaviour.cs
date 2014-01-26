@@ -9,6 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     private GameObject player;
 	private bool isActive = false;
+	private bool isAlive = true;
 	private int pathFinding = 0;
 	private int atakCooldown = 0;
 	public virtual int damage{ get {return 0;}}
@@ -32,45 +33,48 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		var distanceToPlayerVector = (player.transform.position - this.transform.position);
-		var distanceToPlayer = (player.transform.position - this.transform.position).magnitude;
-//        var sqrOfDistanceToPlayer = distanceToPlayerVector.sqrMagnitude;
-		if(isActive)
+		if(isAlive)
 		{
-			if (distanceToPlayer < 3 && Vector3.Angle(distanceToPlayerVector, transform.forward) < 45f)
-	        {
-	            _animator.SetBool("IsAttacking", true);
-
-				if ((atakCooldown++) % 30 == 0) 
-				{
-					//zabieranie zycia graczowi
-					player.GetComponent<Character>().reciveDamage(damage);
-				}
-
-	        }
-	        else
-	        {
-	            _animator.SetBool("IsAttacking", false);
-				atakCooldown=0;
-	        }
-
-			if (distanceToPlayer <= 8) 
+			var distanceToPlayerVector = (player.transform.position - this.transform.position);
+			var distanceToPlayer = (player.transform.position - this.transform.position).magnitude;
+	//        var sqrOfDistanceToPlayer = distanceToPlayerVector.sqrMagnitude;
+			if(isActive)
 			{
-				if ((pathFinding++) % 5 == 0) 
+				if (distanceToPlayer < 3 && Vector3.Angle(distanceToPlayerVector, transform.forward) < 45f)
+		        {
+		            _animator.SetBool("IsAttacking", true);
+
+					if ((atakCooldown++) % 30 == 0) 
+					{
+						//zabieranie zycia graczowi
+						player.GetComponent<Character>().reciveDamage(damage);
+					}
+
+		        }
+		        else
+		        {
+		            _animator.SetBool("IsAttacking", false);
+					atakCooldown=0;
+		        }
+
+				if (distanceToPlayer <= 8) 
 				{
-					agent.SetDestination (player.transform.position);
+					if ((pathFinding++) % 5 == 0) 
+					{
+						agent.SetDestination (player.transform.position);
+					}
+				} else 
+				{
+					if ((pathFinding++) % 30 == 0) 
+					{
+						agent.SetDestination (player.transform.position);
+					}
 				}
-			} else 
+			}else if(distanceToPlayer <= 70)
 			{
-				if ((pathFinding++) % 30 == 0) 
-				{
-					agent.SetDestination (player.transform.position);
-				}
+				isActive = true;
+				alertSound();
 			}
-		}else if(distanceToPlayer <= 70)
-		{
-			isActive = true;
-			alertSound();
 		}
     }
 
@@ -79,7 +83,6 @@ public class EnemyBehaviour : MonoBehaviour
 	{
 		if (enemyHP - strength <= 0) 
 		{
-			Debug.Log(strength + "damage");
 			enemyHP = 0;
 			death();
 		}else
@@ -97,6 +100,7 @@ public class EnemyBehaviour : MonoBehaviour
 	//dzwiek smierci
 	public void death()
 	{
+		isAlive = false;
         _animator.Play("Death");
         audio.PlayOneShot(audioDeath);
         Destroy(gameObject, 1);
