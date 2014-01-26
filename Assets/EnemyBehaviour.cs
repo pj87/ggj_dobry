@@ -79,6 +79,7 @@ public class EnemyBehaviour : MonoBehaviour
 	{
 		if (enemyHP - strength <= 0) 
 		{
+			Debug.Log(strength + "damage");
 			enemyHP = 0;
 			death();
 		}else

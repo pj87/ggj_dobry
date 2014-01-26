@@ -5,10 +5,8 @@ public class Shooting : MonoBehaviour
 {
 
     public GameObject bullet;
-    public Vector3 speed;
-    //public GameObject weapon 
+    public int speed;
 
-    public List<GameObject> lista = new List<GameObject>();
     public AudioClip shotSound;
     public AudioClip reloadSound;
 
@@ -19,9 +17,8 @@ public class Shooting : MonoBehaviour
     void Start()
     {
         numBullets = 1;
-        shooting = true; 
-        //player = GameObject.Find("3rd Person Controller");
-        //player.transform.position. 
+        shooting = true;  
+		speed = 5000;
     } 
 
     // Update is called once per frame
@@ -32,13 +29,11 @@ public class Shooting : MonoBehaviour
             var b = (GameObject) Instantiate(bullet, transform.position, Quaternion.identity) as GameObject; 
 
             //b.transform.Rotate(new Vector3(90, transform.rotation.eulerAngles.y, 180)); 
-            b.rigidbody.AddForce(transform.forward * 5000);
+            b.rigidbody.AddForce(transform.forward * speed);
 
             numBullets--; 
 
             audio.PlayOneShot(shotSound); 
-
-            lista.Add(b); 
         } 
         
         if (numBullets <= 0) 
@@ -53,6 +48,5 @@ public class Shooting : MonoBehaviour
     void reloadFinished()
     {
         shooting = true;
-        //Destroy(smoke1); 
     }
 } 

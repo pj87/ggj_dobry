@@ -7,12 +7,14 @@ public class BulletBehaviour : MonoBehaviour {
     int enemyLayer;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
         enemyLayer = LayerMask.NameToLayer("enemy");
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 	}
 
     void OnCollisionEnter(Collision collision)
