@@ -10,6 +10,7 @@ public class BulletBehaviour : MonoBehaviour {
 	void Start ()
 	{
         enemyLayer = LayerMask.NameToLayer("enemy");
+		gameObject.GetComponent<ParticleSystem>().Play();
 	}
 	
 	// Update is called once per frame
@@ -22,7 +23,16 @@ public class BulletBehaviour : MonoBehaviour {
         if (collision.gameObject.layer == enemyLayer)
         {
 			collision.gameObject.GetComponent<EnemyBehaviour>().recieveDamage(damage);
-        } 
-        Destroy(gameObject); 
+			Destroy(gameObject); 
+        }
+		else if(collision.gameObject.layer == LayerMask.NameToLayer("bullet"))
+		{
+			//kolizja z innym pociskiem, nie rb nic.
+		}
+		else
+		{
+			Destroy(gameObject); 
+		}
+        
     } 
 }

@@ -8,6 +8,9 @@ public class Shooting : MonoBehaviour
     public int speed;
 	public bool alive;
 
+	public Light barrelFlash;
+	public int flashTimeout = 0;
+
     public AudioClip shotSound;
     public AudioClip reloadSound;
 
@@ -21,6 +24,7 @@ public class Shooting : MonoBehaviour
         shooting = true;
 		alive = true;
 		speed = 10000;
+		barrelFlash.enabled = false;
     } 
 
     // Update is called once per frame
@@ -39,7 +43,8 @@ public class Shooting : MonoBehaviour
 
 	            audio.PlayOneShot(shotSound); 
 
-				gameObject.GetComponent<ParticleSystem>().Emit(100);
+				gameObject.GetComponent<ParticleSystem>().Play();
+				barrelFlash.enabled = true;
 	        } 
 	        
 	        if (numBullets <= 0) 
@@ -49,6 +54,20 @@ public class Shooting : MonoBehaviour
 	            numBullets = 1; 
 	            Invoke("reloadFinished", 1); 
 	        } 
+
+			if(barrelFlash.enabled)
+			{
+				flashTimeout++;
+				if(flashTimeout >= 5)
+				{
+					barrelFlash.enabled = false;
+					flashTimeout = 0;
+				}
+			}
+
+		}else
+		{
+			barrelFlash.enabled=false;
 		}
     } 
 
