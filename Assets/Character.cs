@@ -27,6 +27,7 @@ public class Character : MonoBehaviour {
 	public AudioClip playerStepFull;
 
 	private int playerHP = 100;
+	private float speed = 1.5f;
     private GameObject mainCamera_; 
 
     public int getPlayerHp()
@@ -103,9 +104,8 @@ public class Character : MonoBehaviour {
 	        {
 	            moveVector.z = vAxis > 0 ? 1f : -1f;
 	        }
-	        transform.position += moveVector * 0.1f;
-	        
-	        //Vector3 speed : Vector3 = Vector3 (3, 0, 0);
+	        transform.position += (moveVector * 0.1f)*speed;
+	       
 	        rigidbody.MovePosition(transform.position + moveVector * Time.deltaTime); 
 
 			//obsluga myszy

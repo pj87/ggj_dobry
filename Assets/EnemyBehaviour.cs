@@ -70,7 +70,7 @@ public class EnemyBehaviour : MonoBehaviour
 						agent.SetDestination (player.transform.position);
 					}
 				}
-			}else if(distanceToPlayer <= 70)
+			}else if(distanceToPlayer <= 50)
 			{
 				isActive = true;
 				alertSound();
