@@ -129,14 +129,17 @@ public class Character : MonoBehaviour {
 	//gracz otrzymuje obrazenia
 	public void reciveDamage(int damage)
 	{
-		audio.PlayOneShot(playerHit);
-		if(playerHP - damage <= 0)
+		if(playerHP != 0)
 		{
-			playerHP = 0;
-			death();
-		}else
-		{
-			playerHP = playerHP - damage;
+			audio.PlayOneShot(playerHit);
+			if(playerHP - damage <= 0)
+			{
+				playerHP = 0;
+				death();
+			}else 
+			{
+				playerHP = playerHP - damage;
+			}
 		}
 	}
 

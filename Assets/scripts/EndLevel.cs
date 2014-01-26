@@ -40,10 +40,7 @@ public class EndLevel : MonoBehaviour {
         {
             changeScreen_ = false;
             Invoke("goToCredits", 4); 
-            //Application.LoadLevel("welcome"); 
         } 
-        //if (player.GetComponent<Character>().getPlayerHp() <= 0)
-            //DisplayResult(); 
 	} 
 
     void DisplayResult() 
@@ -58,7 +55,7 @@ public class EndLevel : MonoBehaviour {
         else if (playerFinished_ == true)
         {
             GUILayout.BeginArea(new Rect(Screen.width / 2 - 100, Screen.height / 2, 400, 50)); 
-            GUILayout.Label("You have survived... for now..."); 
+            GUILayout.Label("You survived... for now..."); 
             GUILayout.EndArea();
             changeScreen_ = true; 
         }
