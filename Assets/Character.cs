@@ -26,7 +26,8 @@ public class Character : MonoBehaviour {
 	public AudioClip playerStepB;
 	public AudioClip playerStepFull;
 
-	private int playerHP = 100;
+    public int maxPlayerHP = 100;
+	private int playerHP;
 	private float speed = 1.5f;
     private GameObject mainCamera_; 
 
@@ -40,6 +41,8 @@ public class Character : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+        playerHP = maxPlayerHP;
+
 		//ustawienie wizje na latarke
 		visionALongLight.enabled = true;
 		visionAShortLight.enabled = true;
