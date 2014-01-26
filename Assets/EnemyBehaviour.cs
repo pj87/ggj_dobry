@@ -81,6 +81,10 @@ public class EnemyBehaviour : MonoBehaviour
 	//przeciwnik otrzymuje obrazenia
 	public void recieveDamage(int strength)
 	{
+		if(gameObject.GetComponent<ParticleSystem>() != null)
+		{
+			gameObject.GetComponent<ParticleSystem>().Play();
+		}
 		if (enemyHP - strength <= 0) 
 		{
 			enemyHP = 0;
