@@ -29,9 +29,10 @@ public class Character : MonoBehaviour {
     public int maxPlayerHP = 100;
 	private int playerHP;
 	private float speed = 1.5f;
-    private GameObject mainCamera_; 
+    private GameObject mainCamera_;
 
-    private Animator animator_cycki;
+    private Animator animator_; 
+    private Animator animator_cycki; 
     private Animator animator_nogi; 
 
     public int getPlayerHp()
@@ -51,11 +52,19 @@ public class Character : MonoBehaviour {
 		visionBTopLight.enabled = false;
 		visionCLight.enabled = false;
 
-        mainCamera_ = GameObject.Find("Main Camera");
-        //animator_ = GetComponent<Animator>(); 
+        mainCamera_ = GameObject.Find("Main Camera"); 
+        animator_ = GameObject.Find("laska_model").GetComponent<Animator>();
+
+        //animator_ = 
+
         //animator_cycki = GameObject.Find("laska_cycki").GetComponent<Animator>();
         //animator_nogi = GameObject.Find("laska_nogi").GetComponent<Animator>(); 
 
+        animator_.SetBool("isWalking", false);
+        animator_.SetBool("isShooting", false);
+        animator_.SetBool("isAttacked", false);
+        animator_.SetBool("isDying", false);
+        
         //animator_cycki.SetBool("isWalking", false);
         //animator_cycki.SetBool("isShooting", false);
         //animator_cycki.SetBool("isDying", false);
@@ -115,13 +124,17 @@ public class Character : MonoBehaviour {
 	        var vAxis = Input.GetAxis("Vertical");
 	        if (hAxis != 0)
 	        {
-	            moveVector.x = hAxis > 0 ? 1f : -1f;
+	            moveVector.x = hAxis > 0 ? 1f : -1f; 
+                animator_.SetBool("isWalking", true); 
+
                 //animator_cycki.SetBool("isWalking", true);
                 //animator_nogi.SetBool("isWalking", true); 
 	        }
 	        if (vAxis != 0)
 	        {
-	            moveVector.z = vAxis > 0 ? 1f : -1f;
+	            moveVector.z = vAxis > 0 ? 1f : -1f; 
+                animator_.SetBool("isWalking", true); 
+
                 //animator_cycki.SetBool("isWalking", true);
                 //animator_nogi.SetBool("isWalking", true); 
 	        }
@@ -129,6 +142,8 @@ public class Character : MonoBehaviour {
             {
                 //animator_cycki.SetBool("isWalking", false);
                 //animator_nogi.SetBool("isWalking", false);
+
+                animator_.SetBool("isWalking", false); 
             } 
 
 	        transform.position += (moveVector * 0.1f)*speed;
@@ -160,7 +175,8 @@ public class Character : MonoBehaviour {
 	{
 		if (collider.gameObject.tag == "Enemy") 
 		{
-			audio.PlayOneShot(playerHit);
+            animator_.SetBool("isAttacked", true); 
+			audio.PlayOneShot(playerHit); 
 		}
 	}
 

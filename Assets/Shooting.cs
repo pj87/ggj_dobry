@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic; 
 public class Shooting : MonoBehaviour
 {
-    public Animator animator_;
+    private Animator animator_;
     public GameObject bullet;
     public int speed;
 	public bool alive;
@@ -26,7 +26,8 @@ public class Shooting : MonoBehaviour
 		speed = 10000;
 		barrelFlash.enabled = false;
 
-        //animator_.SetBool("isShooting", false); 
+        animator_ = GameObject.Find("laska_model").GetComponent<Animator>();
+        animator_.SetBool("isShooting", false); 
     } 
 
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class Shooting : MonoBehaviour
 
 				gameObject.GetComponent<ParticleSystem>().Play();
 				barrelFlash.enabled = true; 
-                //animator_.SetBool("isShooting", true); 
+                animator_.SetBool("isShooting", true); 
 	        } 
 	        
 	        if (numBullets <= 0) 
@@ -76,7 +77,7 @@ public class Shooting : MonoBehaviour
 
     void reloadFinished()
     {
-        //animator_.SetBool("isShooting", false); 
+        animator_.SetBool("isShooting", false); 
         shooting = true; 
     }
 
