@@ -77,6 +77,8 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+        //animator_.SetBool("isAttacked", false); 
+
 		if(alive)
 		{
 			//obsluga zmiany wizji
@@ -143,7 +145,7 @@ public class Character : MonoBehaviour {
                 //animator_cycki.SetBool("isWalking", false);
                 //animator_nogi.SetBool("isWalking", false);
 
-                animator_.SetBool("isWalking", false); 
+                animator_.SetBool("isWalking", false);
             } 
 
 	        transform.position += (moveVector * 0.1f)*speed;
