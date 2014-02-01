@@ -31,7 +31,8 @@ public class Character : MonoBehaviour {
 	private float speed = 1.5f;
     private GameObject mainCamera_; 
 
-    private Animator animator_; 
+    private Animator animator_cycki;
+    private Animator animator_nogi; 
 
     public int getPlayerHp()
     {
@@ -52,10 +53,16 @@ public class Character : MonoBehaviour {
 
         mainCamera_ = GameObject.Find("Main Camera");
         //animator_ = GetComponent<Animator>(); 
-        animator_ = GetComponentInChildren<Animator>();
-        animator_.SetBool("isWalking", false);
-        animator_.SetBool("isShooting", false);
-        animator_.SetBool("isDying", false); 
+        //animator_cycki = GameObject.Find("laska_cycki").GetComponent<Animator>();
+        //animator_nogi = GameObject.Find("laska_nogi").GetComponent<Animator>(); 
+
+        //animator_cycki.SetBool("isWalking", false);
+        //animator_cycki.SetBool("isShooting", false);
+        //animator_cycki.SetBool("isDying", false);
+
+        //animator_nogi.SetBool("isWalking", false);
+        //animator_nogi.SetBool("isShooting", false);
+        //animator_nogi.SetBool("isDying", false); 
 	}
 	
 	// Update is called once per frame
@@ -109,15 +116,20 @@ public class Character : MonoBehaviour {
 	        if (hAxis != 0)
 	        {
 	            moveVector.x = hAxis > 0 ? 1f : -1f;
-                animator_.SetBool("isWalking", true); 
+                //animator_cycki.SetBool("isWalking", true);
+                //animator_nogi.SetBool("isWalking", true); 
 	        }
 	        if (vAxis != 0)
 	        {
 	            moveVector.z = vAxis > 0 ? 1f : -1f;
-                animator_.SetBool("isWalking", true); 
+                //animator_cycki.SetBool("isWalking", true);
+                //animator_nogi.SetBool("isWalking", true); 
 	        }
             if (hAxis == 0 && vAxis == 0)
-                animator_.SetBool("isWalking", false); 
+            {
+                //animator_cycki.SetBool("isWalking", false);
+                //animator_nogi.SetBool("isWalking", false);
+            } 
 
 	        transform.position += (moveVector * 0.1f)*speed;
 	       
@@ -126,8 +138,8 @@ public class Character : MonoBehaviour {
 			//obsluga myszy
 			var observationPoint = Camera.main.ScreenToWorldPoint (new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
 			observationPoint.y = 0.5f;
-            transform.Find("laska_cycki").LookAt(observationPoint); 
-			//transform.LookAt(observationPoint);
+            //transform.Find("laska_cycki").LookAt(observationPoint); 
+			transform.LookAt(observationPoint);
             //animator_.SetBool("isWalking", true); 
 
 	        var cameraPosition = this.transform.position;
@@ -184,7 +196,8 @@ public class Character : MonoBehaviour {
 		visionBTopLight.enabled = false;
 		visionCLight.enabled = false;
         mainCamera_.GetComponent<EndLevel>().setPlayerKilled(true);
-        animator_.SetBool("isDying", true); 
+        animator_cycki.SetBool("isDying", true);
+        animator_nogi.SetBool("isDying", true); 
 	}
 
 	//uzywane do ochrony gracza
